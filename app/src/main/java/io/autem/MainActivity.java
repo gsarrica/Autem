@@ -20,13 +20,6 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-import org.json.JSONObject;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -38,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText mTokenEditText;
     private EditText mChromeTokenEditText;
     private EditText mApiKeyEditText;
-    private NotificationReceiver nReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +70,6 @@ public class MainActivity extends AppCompatActivity {
         String chromeToken = sharedPreferences.getString(AutemPreferences.CHROME_TOKEN, "");
         mChromeTokenEditText.setText(chromeToken);
 
-        nReceiver = new NotificationReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("io.autem.NOTIFICATION_LISTENER");
-        registerReceiver(nReceiver,filter);
-
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
             Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -99,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
                 sharedPreferences.edit().putString(AutemPreferences.API_KEY, mApiKeyEditText.getText().toString()).commit();
                 sharedPreferences.edit().putString(AutemPreferences.CHROME_TOKEN, mChromeTokenEditText.getText().toString()).commit();
-                sendJson(mChromeTokenEditText.getText().toString(), mApiKeyEditText.getText().toString());
+                sendTestMessage(mChromeTokenEditText.getText().toString(), mApiKeyEditText.getText().toString());
             }
         });
 
@@ -121,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(nReceiver);
     }
 
     /**
@@ -145,67 +131,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    protected void sendJson(final String chromeToken, final String apiKey) {
+    protected void sendTestMessage(final String chromeToken, final String apiKey) {
         Thread t = new Thread() {
 
             public void run() {
                 Log.i(TAG, "Preparing message");
                 Looper.prepare(); //For Preparing Message Pool for the child Thread
-                try {
-                    URL url;
-                    HttpURLConnection urlConn;
-                    DataOutputStream printout;
-                    DataInputStream input;
-                    url = new URL("https://android.googleapis.com/gcm/send");
-                    urlConn = (HttpURLConnection)url.openConnection();
-                    urlConn.setDoInput(true);
-                    urlConn.setDoOutput(true);
-                    urlConn.setUseCaches(false);
-                    urlConn.setRequestProperty("Content-Type", "application/json");
-                    urlConn.setRequestProperty("Authorization", "key=" + apiKey);
-                    urlConn.setRequestProperty("Host", "android.googleapis.com");
-                    urlConn.setRequestProperty("charset", "utf-8");
-                    urlConn.connect();
-
-                    // Send POST output.
-                    printout = new DataOutputStream(urlConn.getOutputStream ());
-                    JSONObject message = new JSONObject();
-                    message.put("message", "Yes");
-                    JSONObject dataJSON = new JSONObject();
-                    dataJSON.put("data", message);
-                    dataJSON.put("to", chromeToken);
-                    Log.i(TAG, dataJSON.toString());
-
-                    printout.write(dataJSON.toString().getBytes("UTF-8"));
-                    printout.flush();
-                    printout.close();
-                    Log.i(TAG, "Sent Message");
-
-                    int httpResult =urlConn.getResponseCode();
-
-                    Log.i(TAG, "http code:" + httpResult);
-
-                }catch (Exception e) {
-                    Log.i(TAG, "Error sending message", e);
-                }
-
-
-
-
+                SendMessageService sendMessageService = new SendMessageService();
+                sendMessageService.sendMessage(apiKey, chromeToken, "Message Tester", "This is a test.");
                 Looper.loop(); //Loop in the message queue
             }
         };
-
         t.start();
-    }
-
-    class NotificationReceiver extends BroadcastReceiver{
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String temp = intent.getStringExtra("notification_event");
-            Log.d(TAG,temp);
-        }
     }
 
 }
