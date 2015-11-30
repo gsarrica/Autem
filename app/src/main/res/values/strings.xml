@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Autem</string>
+    <string name="gcm_send_message">Try this: curl -H "Content-Type: application/json" -H "Authorization: key=api_key" -X POST -d \'{"data"{"message":"Hello World."},"to":"/topics/global"}\' https://android.googleapis.com/gcm/send</string>
+    <string name="registering_message">Generating InstanceID token...</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+    <string name="device_token_label">Device Token:</string>
+    <string name="chrome_token_label">Chrome Token:</string>
+    <string name="api_label">API Key:</string>
+    <string name="test_message_button">Send Test Message</string>
 </resources>

@@ -12,5 +12,79 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/registering_message"
+        android:id="@+id/informationTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registrationProgressBar"
+        android:layout_below="@+id/informationTextView"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/device_token_label"
+        android:id="@+id/deviceTokenTextView"
+        android:layout_below="@+id/registrationProgressBar" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tokenEditText"
+        android:layout_below="@+id/deviceTokenTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:inputType="text"
+        android:editable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chrome_token_label"
+        android:id="@+id/chromeTokenTextView"
+        android:layout_below="@+id/tokenEditText"
+        android:layout_alignParentStart="true"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chromeTokenEditText"
+        android:layout_below="@+id/chromeTokenTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:inputType="text"
+        android:editable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/api_label"
+        android:id="@+id/apiKeyTextView"
+        android:layout_below="@+id/chromeTokenEditText"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/apiKeyEditText"
+        android:layout_below="@+id/apiKeyTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_message_button"
+        android:id="@+id/testMessageButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="#004fea"
+        android:textColor="#ffffff"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp" />
 </RelativeLayout>
