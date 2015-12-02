@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Preparing message");
                 Looper.prepare(); //For Preparing Message Pool for the child Thread
                 SendMessageService sendMessageService = new SendMessageService();
-                sendMessageService.sendMessage(apiKey, chromeToken, "Message Tester", "This is a test.");
+                sendMessageService.sendMessage(apiKey, chromeToken, "Message Tester", "This is a test.", "Autem Test Contact");
                 Looper.loop(); //Loop in the message queue
             }
         };

@@ -19,7 +19,7 @@ public class SendMessageService {
 
     private static final String TAG = "SendMessageService";
 
-    public void sendMessage(String apiKey, String chromeToken, String from, String textMessage) {
+    public void sendMessage(String apiKey, String chromeToken, String from, String textMessage, String contactName) {
         try {
             URL url;
             HttpURLConnection urlConn;
@@ -41,6 +41,7 @@ public class SendMessageService {
             JSONObject message = new JSONObject();
 
             AutemTextMessage autemTextMessage = new AutemTextMessage();
+            autemTextMessage.setContactName(contactName);
             autemTextMessage.setFrom(from);
             autemTextMessage.setMessage(textMessage);
             autemTextMessage.setTimestamp(new LocalDateTime());
