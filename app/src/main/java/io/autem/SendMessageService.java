@@ -2,6 +2,9 @@ package io.autem;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
+import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -36,7 +39,14 @@ public class SendMessageService {
             // Send POST output.
             printout = new DataOutputStream(urlConn.getOutputStream ());
             JSONObject message = new JSONObject();
-            message.put("message", "From: " + from + " Message: " + textMessage);
+
+            AutemTextMessage autemTextMessage = new AutemTextMessage();
+            autemTextMessage.setFrom(from);
+            autemTextMessage.setMessage(textMessage);
+            autemTextMessage.setTimestamp(new LocalDateTime());
+            Gson gson = new Gson();
+            String json = gson.toJson(autemTextMessage);
+            message.put("message", json);
             JSONObject dataJSON = new JSONObject();
             dataJSON.put("data", message);
             dataJSON.put("to", chromeToken);

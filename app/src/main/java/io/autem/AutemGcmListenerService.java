@@ -8,9 +8,11 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.gson.Gson;
 
 /**
  * Created by gsarrica on 11/29/15.
@@ -52,6 +54,15 @@ public class AutemGcmListenerService extends GcmListenerService {
          * that a message was received.
          */
         sendNotification(message);
+        Gson gson = new Gson();
+        try{
+            AutemTextMessage autemTextMessage = gson.fromJson(message, AutemTextMessage.class);
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(autemTextMessage.getTo(),null,autemTextMessage.getMessage(),null,null);
+
+        } catch (com.google.gson.JsonSyntaxException e) {
+            Log.e(TAG, "Failed to parse message from Chrome: " + message, e);
+        }
         // [END_EXCLUDE]
     }
     // [END receive_message]
@@ -62,6 +73,7 @@ public class AutemGcmListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     private void sendNotification(String message) {
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

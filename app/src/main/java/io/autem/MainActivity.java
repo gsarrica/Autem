@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mRegistrationProgressBar = (ProgressBar) findViewById(R.id.registrationProgressBar);
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 sendTestMessage(mChromeTokenEditText.getText().toString(), mApiKeyEditText.getText().toString());
             }
         });
+
 
     }
 
@@ -144,5 +144,6 @@ public class MainActivity extends AppCompatActivity {
         };
         t.start();
     }
+
 
 }

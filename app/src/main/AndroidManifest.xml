@@ -4,6 +4,8 @@
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +21,12 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".AutemSmsReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -54,12 +62,5 @@
             android:exported="false">
         </service>
 
-        <service android:name="io.autem.AutemNotificationListener"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
     </application>
 </manifest>
