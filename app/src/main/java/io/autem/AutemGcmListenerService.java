@@ -19,7 +19,7 @@ import com.google.gson.Gson;
  */
 public class AutemGcmListenerService extends GcmListenerService {
 
-    private static final String TAG = "MyGcmListenerService";
+    private static final String TAG = "AutemGcmListenerService";
 
     /**
      * Called when message is received.
@@ -59,7 +59,6 @@ public class AutemGcmListenerService extends GcmListenerService {
             AutemTextMessage autemTextMessage = gson.fromJson(message, AutemTextMessage.class);
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(autemTextMessage.getTo(),null,autemTextMessage.getMessage(),null,null);
-
         } catch (com.google.gson.JsonSyntaxException e) {
             Log.e(TAG, "Failed to parse message from Chrome: " + message, e);
         }

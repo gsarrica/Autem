@@ -6,18 +6,19 @@ import org.joda.time.LocalDateTime;
  * Created by gsarrica on 12/1/15.
  */
 public class AutemTextMessage {
-    private String contactName;
-    private String from;
+
     private String to;
+    private String from;
     private String message;
     private LocalDateTime timestamp;
 
-    public String getContactName() {
-        return contactName;
+
+    public String getTo() {
+        return to;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getFrom() {
@@ -26,14 +27,6 @@ public class AutemTextMessage {
 
     public void setFrom(String from) {
         this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public String getMessage() {
@@ -55,9 +48,8 @@ public class AutemTextMessage {
     @Override
     public String toString() {
         return "AutemTextMessage{" +
-                "contactName='" + contactName + '\'' +
+                "to='" + to + '\'' +
                 ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
                 ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
