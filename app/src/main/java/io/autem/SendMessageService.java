@@ -39,14 +39,23 @@ public class SendMessageService {
             // Send POST output.
             printout = new DataOutputStream(urlConn.getOutputStream ());
             JSONObject message = new JSONObject();
+            AutemConversation autemConversation = new AutemConversation();
+
+            AutemContact autemContact = new AutemContact();
+            autemContact.setName(contactName);
+            autemContact.setPhoneNumber(from);
+
+            autemConversation.setAutemContact(autemContact);
 
             AutemTextMessage autemTextMessage = new AutemTextMessage();
-            autemTextMessage.setContactName(contactName);
-            autemTextMessage.setFrom(from);
             autemTextMessage.setMessage(textMessage);
             autemTextMessage.setTimestamp(new LocalDateTime());
+            autemTextMessage.setTo("me");
+            autemTextMessage.setFrom(from);
+            autemConversation.setAutemTextMessage(autemTextMessage);
+
             Gson gson = new Gson();
-            String json = gson.toJson(autemTextMessage);
+            String json = gson.toJson(autemConversation);
             message.put("message", json);
             JSONObject dataJSON = new JSONObject();
             dataJSON.put("data", message);

@@ -31,15 +31,18 @@ public class AutemSmsReceiver extends BroadcastReceiver {
                     for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
                         String originatingAddress = smsMessage.getOriginatingAddress();
                         String messageBody = smsMessage.getMessageBody();
+                        String displayName = originatingAddress;
+                        String contactName = originatingAddress;
+                        try {
+                            Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(originatingAddress));
+                            Cursor c = context.getContentResolver().query(lookupUri, new String[]{ContactsContract.Data.DISPLAY_NAME}, null, null, null);
 
-
-                        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(originatingAddress));
-                        Cursor c = context.getContentResolver().query(lookupUri, new String[]{ContactsContract.Data.DISPLAY_NAME}, null, null, null);
-
-                        c.moveToFirst();
-                        String displayName = c.getString(0);
-                        String contactName = displayName;
-
+                            c.moveToFirst();
+                            displayName = c.getString(0);
+                            contactName = displayName;
+                        } catch (Exception e) {
+                            Log.d(TAG, "Contact not found for: " + originatingAddress);
+                        }
 
                         SharedPreferences sharedPreferences =
                                 PreferenceManager.getDefaultSharedPreferences(context);
