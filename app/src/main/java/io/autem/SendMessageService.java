@@ -60,6 +60,8 @@ public class SendMessageService {
             JSONObject dataJSON = new JSONObject();
             dataJSON.put("data", message);
             dataJSON.put("to", chromeToken);
+            dataJSON.put("priority", "high");
+            // dataJSON.put("time_to_live", 600); set this later. rather have this off for testing
             Log.i(TAG, dataJSON.toString());
 
             printout.write(dataJSON.toString().getBytes("UTF-8"));
