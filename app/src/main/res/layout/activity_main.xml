@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:text="@string/device_token_label"
         android:id="@+id/deviceTokenTextView"
-        android:layout_below="@+id/registrationProgressBar" />
+        android:layout_below="@+id/chromeTokenEditText"
+         />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/chrome_token_label"
         android:id="@+id/chromeTokenTextView"
-        android:layout_below="@+id/tokenEditText"
+        android:layout_below="@+id/apiKeyEditText"
         android:layout_alignParentStart="true"
         android:editable="false" />
 
@@ -67,7 +68,7 @@
         android:layout_height="wrap_content"
         android:text="@string/api_label"
         android:id="@+id/apiKeyTextView"
-        android:layout_below="@+id/chromeTokenEditText"
+        android:layout_below="@+id/projectNumberEditText"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -95,7 +96,7 @@
         android:layout_height="wrap_content"
         android:text="@string/project_number_label"
         android:id="@+id/projectNumber"
-        android:layout_below="@+id/apiKeyEditText"
+        android:layout_below="@+id/registrationProgressBar"
         android:layout_alignParentStart="true" />
 
     <EditText
