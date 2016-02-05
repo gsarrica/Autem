@@ -87,4 +87,32 @@
         android:textColor="#ffffff"
         android:paddingStart="5dp"
         android:paddingEnd="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_number_label"
+        android:id="@+id/projectNumber"
+        android:layout_below="@+id/apiKeyEditText"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/projectNumberEditText"
+        android:layout_below="@+id/projectNumber"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/apiKeyEditText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_device_button"
+        android:id="@+id/registerDeviceButton"
+        android:background="#004fea"
+        android:textColor="#ffffff"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_alignTop="@+id/testMessageButton"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

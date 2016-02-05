@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mTokenEditText;
     private EditText mChromeTokenEditText;
     private EditText mApiKeyEditText;
+    private EditText mProjectNumberEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +71,32 @@ public class MainActivity extends AppCompatActivity {
         String chromeToken = sharedPreferences.getString(AutemPreferences.CHROME_TOKEN, "");
         mChromeTokenEditText.setText(chromeToken);
 
+        mProjectNumberEditText = (EditText) findViewById(R.id.projectNumberEditText);
+        String projectNumber = sharedPreferences.getString(AutemPreferences.PROJECT_NUMBER, "");
+        mProjectNumberEditText.setText(projectNumber);
+
         if (checkPlayServices()) {
-            // Start IntentService to register this application with GCM.
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
+            final Intent intent = new Intent(this, RegistrationIntentService.class);
+            final Button registerDeviceButton = (Button) findViewById(R.id.registerDeviceButton);
+            registerDeviceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Start IntentService to register this application with GCM.
+                    mProjectNumberEditText = (EditText) findViewById(R.id.projectNumberEditText);
+                    if(!mProjectNumberEditText.getText().toString().isEmpty()) {
+                        SharedPreferences sharedPreferences =
+                                PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
+                        sharedPreferences.edit().putString(AutemPreferences.PROJECT_NUMBER, mProjectNumberEditText.getText().toString()).commit();
+                        startService(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.project_number_required), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
 
-
-        final Button button = (Button) findViewById(R.id.testMessageButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button testMessageButton = (Button) findViewById(R.id.testMessageButton);
+        testMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mChromeTokenEditText = (EditText) findViewById(R.id.chromeTokenEditText);
                 mApiKeyEditText = (EditText) findViewById(R.id.apiKeyEditText);

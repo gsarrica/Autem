@@ -9,4 +9,5 @@ public class AutemPreferences {
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
     public static final String API_KEY = "apiKey";
     public static final String CHROME_TOKEN = "chromeToken";
+    public static final String PROJECT_NUMBER = "projectNumber";
 }
