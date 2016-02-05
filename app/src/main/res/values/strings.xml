@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Autem</string>
-    <string name="gcm_send_message">Try this: curl -H "Content-Type: application/json" -H "Authorization: key=api_key" -X POST -d \'{"data"{"message":"Hello World."},"to":"/topics/global"}\' https://android.googleapis.com/gcm/send</string>
+    <string name="gcm_send_message">Your device is now registered. Copy the device token to the chrome extension.</string>
     <string name="registering_message">Generating InstanceID token...</string>
     <string name="token_error_message">An error occurred while either fetching the InstanceID token,
         sending the fetched token to the server or subscribing to the PubSub topic. Please try

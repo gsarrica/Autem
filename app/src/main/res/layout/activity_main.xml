@@ -15,14 +15,16 @@
         android:text="@string/registering_message"
         android:id="@+id/informationTextView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/registrationProgressBar"
         android:layout_below="@+id/informationTextView"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"

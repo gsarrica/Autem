@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     // Start IntentService to register this application with GCM.
                     mProjectNumberEditText = (EditText) findViewById(R.id.projectNumberEditText);
                     if(!mProjectNumberEditText.getText().toString().isEmpty()) {
+                        mRegistrationProgressBar.setVisibility(ProgressBar.VISIBLE);
+                        mInformationTextView.setVisibility(View.VISIBLE);
                         SharedPreferences sharedPreferences =
                                 PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
                         sharedPreferences.edit().putString(AutemPreferences.PROJECT_NUMBER, mProjectNumberEditText.getText().toString()).commit();
