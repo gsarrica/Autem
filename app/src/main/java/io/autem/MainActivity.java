@@ -38,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
+        mTokenEditText = (EditText) findViewById(R.id.tokenEditText);
+        mChromeTokenEditText = (EditText) findViewById(R.id.chromeTokenEditText);
+        mApiKeyEditText = (EditText) findViewById(R.id.apiKeyEditText);
+        mProjectNumberEditText = (EditText) findViewById(R.id.projectNumberEditText);
+
         mRegistrationProgressBar = (ProgressBar) findViewById(R.id.registrationProgressBar);
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -58,20 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
-        mTokenEditText = (EditText) findViewById(R.id.tokenEditText);
 
-        mApiKeyEditText = (EditText) findViewById(R.id.apiKeyEditText);
+
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        String token = sharedPreferences.getString(AutemPreferences.REGISTRATION_TOKEN, "");
+        mTokenEditText.setText(token);
+
         String apiKey = sharedPreferences.getString(AutemPreferences.API_KEY, "");
         mApiKeyEditText.setText(apiKey);
 
-        mChromeTokenEditText = (EditText) findViewById(R.id.chromeTokenEditText);
         String chromeToken = sharedPreferences.getString(AutemPreferences.CHROME_TOKEN, "");
         mChromeTokenEditText.setText(chromeToken);
 
-        mProjectNumberEditText = (EditText) findViewById(R.id.projectNumberEditText);
         String projectNumber = sharedPreferences.getString(AutemPreferences.PROJECT_NUMBER, "");
         mProjectNumberEditText.setText(projectNumber);
 
